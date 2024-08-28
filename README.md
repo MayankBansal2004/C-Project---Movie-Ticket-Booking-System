@@ -66,11 +66,11 @@ The program consists of the following key functions:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/yourrepositoryname.git
+   git clone https://github.com/MayankBansal/C_project.git
    ```
 2. **Navigate to the project directory:**
    ```bash
-   cd yourrepositoryname
+   cd c_project
    ```
 3. **Compile the program:**
    ```bash
