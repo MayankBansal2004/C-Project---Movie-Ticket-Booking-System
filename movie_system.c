@@ -271,3 +271,41 @@ void addMovie() {
 
     printf("Movie list is full. Unable to add more movies.\n");
 }
+
+void removeMovie() {
+    int movieId;
+    printf("\nEnter the Movie ID to remove: ");
+    scanf("%d", &movieId);
+
+    if (movieId < 1 || movieId > MAX_MOVIES || movies[movieId - 1].id == 0) {
+        printf("Invalid Movie ID!\n");
+        return;
+    }
+
+    movies[movieId - 1].id = 0; // Mark movie as removed
+    printf("Movie ID %d has been removed.\n", movieId);
+    saveMovieData(); // Save the updated movie list
+}
+
+void saveMovieData() {
+    FILE *file = fopen("movies.dat", "wb");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return;
+    }
+    fwrite(movies, sizeof(Movie), MAX_MOVIES, file);
+    fclose(file);
+    printf("Movie data saved successfully.\n");
+}
+
+void loadMovieData() {
+    FILE *file = fopen("movies.dat", "rb");
+    if (file == NULL) {
+        // File doesn't exist, initialize with default movies or an empty list
+        initializeMovies();
+        return;
+    }
+    fread(movies, sizeof(Movie), MAX_MOVIES, file);
+    fclose(file);
+    printf("Movie data loaded successfully.\n");
+}
