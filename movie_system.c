@@ -125,3 +125,50 @@ void searchMovie() {
         printf("No movies found with the name '%s'.\n", searchName);
     }
 }
+
+void bookTicket() {
+    if (loggedInUser == NULL) {
+        printf("\nPlease log in to book tickets.\n");
+        return;
+    }
+
+    char customerName[50];
+    int movieChoice;
+    printf("\nEnter your name: ");
+    scanf("%s", customerName);
+    displayMovies();
+    printf("\nEnter the Movie ID you want to book: ");
+    scanf("%d", &movieChoice);
+
+    if (movieChoice < 1 || movieChoice > MAX_MOVIES || movies[movieChoice - 1].id == 0) {
+        printf("Invalid Movie ID!\n");
+        return;
+    }
+
+    int seatsBooked[MAX_SEATS] = {0}; // Initialize to 0
+    seatSelection(movieChoice, seatsBooked);
+
+    int totalPrice = 0;
+    for (int i = 0; i < MAX_SEATS; i++) {
+        if (seatsBooked[i] == 1) {  // Check for booked seats
+            totalPrice += movies[movieChoice - 1].pricePerSeat;
+        }
+    }
+
+    applyDiscount(&totalPrice);
+    paymentProcessing(&totalPrice);
+    
+    bookings[bookingCount].bookingId = bookingCount + 1;
+    strcpy(bookings[bookingCount].customerName, customerName);
+    bookings[bookingCount].movieId = movieChoice;
+    memcpy(bookings[bookingCount].seatsBooked, seatsBooked, sizeof(seatsBooked));
+    bookings[bookingCount].totalPrice = totalPrice;
+    
+    loggedInUser->bookings[loggedInUser->bookingCount++] = bookings[bookingCount];
+    bookingCount++;
+    loggedInUser->loyaltyPoints += totalPrice / 10; // Earn points (1 point per $10 spent)
+    
+    printf("Booking successful! Your booking ID is %d\n", bookings[bookingCount - 1].bookingId);
+    printf("Total price: $%d\n", totalPrice);
+    printf("Loyalty points earned: %d\n", totalPrice / 10);
+}
