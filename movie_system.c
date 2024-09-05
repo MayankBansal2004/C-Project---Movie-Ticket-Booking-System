@@ -393,3 +393,9 @@ void applyDiscount(int *totalPrice) {
     }
 }
 
+void paymentProcessing(int *totalPrice) {
+    printf("Proceeding to payment...\n");
+    printf("Total amount to be paid: $%d\n", *totalPrice);
+    printf("Payment successful!\n");
+    totalEarnings += *totalPrice; // Update total earnings
+}
