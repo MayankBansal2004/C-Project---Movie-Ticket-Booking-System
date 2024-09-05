@@ -45,3 +45,50 @@ int userCount = 0;
 int totalEarnings = 0;
 int bookingCount = 0;
 User *loggedInUser = NULL;
+
+void initializeMovies() {
+    strcpy(movies[0].name, "Avengers: Endgame");
+    strcpy(movies[0].time, "12:00 PM");
+    movies[0].id = 1;
+    movies[0].availableSeats = 30;
+    movies[0].pricePerSeat = 10;
+    movies[0].rating = 4.5;
+    movies[0].reviewCount = 0;
+    memset(movies[0].seatLayout, 0, sizeof(movies[0].seatLayout));
+
+    strcpy(movies[1].name, "Inception");
+    strcpy(movies[1].time, "3:00 PM");
+    movies[1].id = 2;
+    movies[1].availableSeats = 20;
+    movies[1].pricePerSeat = 12;
+    movies[1].rating = 4.7;
+    movies[1].reviewCount = 0;
+    memset(movies[1].seatLayout, 0, sizeof(movies[1].seatLayout));
+
+    strcpy(movies[2].name, "Interstellar");
+    strcpy(movies[2].time, "6:00 PM");
+    movies[2].id = 3;
+    movies[2].availableSeats = 25;
+    movies[2].pricePerSeat = 15;
+    movies[2].rating = 4.8;
+    movies[2].reviewCount = 0;
+    memset(movies[2].seatLayout, 0, sizeof(movies[2].seatLayout));
+
+    strcpy(movies[3].name, "The Dark Knight");
+    strcpy(movies[3].time, "9:00 PM");
+    movies[3].id = 4;
+    movies[3].availableSeats = 15;
+    movies[3].pricePerSeat = 8;
+    movies[3].rating = 4.9;
+    movies[3].reviewCount = 0;
+    memset(movies[3].seatLayout, 0, sizeof(movies[3].seatLayout));
+
+    strcpy(movies[4].name, "Titanic");
+    strcpy(movies[4].time, "11:00 PM");
+    movies[4].id = 5;
+    movies[4].availableSeats = 10;
+    movies[4].pricePerSeat = 10;
+    movies[4].rating = 4.6;
+    movies[4].reviewCount = 0;
+    memset(movies[4].seatLayout, 0, sizeof(movies[4].seatLayout));
+}
