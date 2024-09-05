@@ -378,3 +378,18 @@ void seatSelection(int movieId, int *seatsBooked) {
         movies[movieId - 1].availableSeats--; // Decrease the count of available seats
     }
 }
+
+void applyDiscount(int *totalPrice) {
+    if (loggedInUser->loyaltyPoints >= 50) {
+        printf("You have %d loyalty points. Apply 10%% discount? (y/n): ", loggedInUser->loyaltyPoints);
+        char choice;
+        scanf(" %c", &choice);
+
+        if (choice == 'y' || choice == 'Y') {
+            *totalPrice = *totalPrice * 0.9;
+            printf("10%% discount applied! New total: $%d\n", *totalPrice);
+            loggedInUser->loyaltyPoints -= 50; // Deduct points
+        }
+    }
+}
+
