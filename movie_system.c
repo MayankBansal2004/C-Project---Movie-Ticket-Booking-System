@@ -172,3 +172,102 @@ void bookTicket() {
     printf("Total price: $%d\n", totalPrice);
     printf("Loyalty points earned: %d\n", totalPrice / 10);
 }
+
+void viewBookings() {
+    if (loggedInUser == NULL) {
+        printf("\nPlease log in to view your bookings.\n");
+        return;
+    }
+
+    if (loggedInUser->bookingCount == 0) {
+        printf("\nNo bookings made yet.\n");
+        return;
+    }
+
+    printf("\nYour Booking History:\n");
+    for (int i = 0; i < loggedInUser->bookingCount; i++) {
+        printf("Booking ID: %d | Movie: %s | Seats: ",
+               loggedInUser->bookings[i].bookingId,
+               movies[loggedInUser->bookings[i].movieId - 1].name);
+        for (int j = 0; j < MAX_SEATS; j++) {
+            if (loggedInUser->bookings[i].seatsBooked[j]) {
+                printf("%d ", j + 1);
+            }
+        }
+        printf("| Total Price: $%d\n", loggedInUser->bookings[i].totalPrice);
+    }
+}
+
+void cancelBooking() {
+    if (loggedInUser == NULL) {
+        printf("\nPlease log in to cancel bookings.\n");
+        return;
+    }
+
+    int bookingId;
+    printf("\nEnter the booking ID to cancel: ");
+    scanf("%d", &bookingId);
+    int found = 0;
+
+    for (int i = 0; i < loggedInUser->bookingCount; i++) {
+        if (loggedInUser->bookings[i].bookingId == bookingId) {
+            found = 1;
+            
+            // Update available seats in the movie
+            int movieId = loggedInUser->bookings[i].movieId;
+            for (int j = 0; j < MAX_SEATS; j++) {
+                if (loggedInUser->bookings[i].seatsBooked[j]) {
+                    movies[movieId - 1].seatLayout[j] = 0;  // Mark seat as available
+                    movies[movieId - 1].availableSeats++;
+                }
+            }
+
+            // Shift bookings to remove the canceled one
+            for (int j = i; j < loggedInUser->bookingCount - 1; j++) {
+                loggedInUser->bookings[j] = loggedInUser->bookings[j + 1];
+            }
+            loggedInUser->bookingCount--;
+            bookingCount--;
+            printf("Booking ID %d has been canceled.\n", bookingId);
+            break;
+        }
+    }
+    if (!found) {
+        printf("Booking ID %d not found.\n", bookingId);
+    }
+}
+
+void addMovie() {
+    char name[50], time[10];
+    int seats, price;
+    float rating;
+
+    printf("\nEnter Movie Name: ");
+    scanf(" %[^\n]%*c", name);
+    printf("Enter Movie Time (e.g., 12:00 PM): ");
+    scanf("%[^\n]%*c", time);
+    printf("Enter Number of Available Seats: ");
+    scanf("%d", &seats);
+    printf("Enter Price Per Seat: ");
+    scanf("%d", &price);
+    printf("Enter Movie Rating (0.0 to 5.0): ");
+    scanf("%f", &rating);
+
+    for (int i = 0; i < MAX_MOVIES; i++) {
+        if (movies[i].id == 0) { // Find an empty slot
+            movies[i].id = i + 1;
+            strcpy(movies[i].name, name);
+            strcpy(movies[i].time, time);
+            movies[i].availableSeats = seats;
+            movies[i].pricePerSeat = price;
+            movies[i].rating = rating;
+            movies[i].reviewCount = 0;
+            memset(movies[i].seatLayout, 0, sizeof(movies[i].seatLayout));
+            printf("Movie added successfully!\n");
+            saveMovieData(); // Save the updated movie list
+            return;
+        }
+    }
+
+    printf("Movie list is full. Unable to add more movies.\n");
+}
