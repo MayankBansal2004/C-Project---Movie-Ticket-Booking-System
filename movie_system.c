@@ -399,3 +399,55 @@ void paymentProcessing(int *totalPrice) {
     printf("Payment successful!\n");
     totalEarnings += *totalPrice; // Update total earnings
 }
+
+void updateUserProfile() {
+    if (loggedInUser == NULL) {
+        printf("\nPlease log in to update your profile.\n");
+        return;
+    }
+
+    printf("Update Profile:\n");
+    printf("1. Update Email\n");
+    printf("2. Update Phone\n");
+    printf("Enter your choice: ");
+    int choice;
+    scanf("%d", &choice);
+
+    switch (choice) {
+        case 1:
+            printf("Enter new email: ");
+            scanf("%s", loggedInUser->email);
+            printf("Email updated successfully!\n");
+            break;
+        case 2:
+            printf("Enter new phone number: ");
+            scanf("%s", loggedInUser->phone);
+            printf("Phone number updated successfully!\n");
+            break;
+        default:
+            printf("Invalid choice!\n");
+            break;
+    }
+}
+
+void saveUserData() {
+    FILE *file = fopen("users.dat", "wb");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return;
+    }
+    fwrite(&userCount, sizeof(int), 1, file);
+    fwrite(users, sizeof(User), userCount, file);
+    fclose(file);
+}
+
+void loadUserData() {
+    FILE *file = fopen("users.dat", "rb");
+    if (file == NULL) {
+        // File doesn't exist, no users to load
+        return;
+    }
+    fread(&userCount, sizeof(int), 1, file);
+    fread(users, sizeof(User), userCount, file);
+    fclose(file);
+}
