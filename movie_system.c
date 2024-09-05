@@ -38,9 +38,9 @@ typedef struct {
     char phone[15];
 } User;
 
-Movie movies[MAX_MOVIES];
-User users[MAX_USERS];
-Booking bookings[MAX_BOOKINGS];
+Movie movies[MAX_MOVIES] = {0};
+User users[MAX_USERS] = {0};
+Booking bookings[MAX_BOOKINGS] = {0};
 int userCount = 0;
 int totalEarnings = 0;
 int bookingCount = 0;
