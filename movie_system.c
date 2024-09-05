@@ -37,3 +37,11 @@ typedef struct {
     char email[50];
     char phone[15];
 } User;
+
+Movie movies[MAX_MOVIES];
+User users[MAX_USERS];
+Booking bookings[MAX_BOOKINGS];
+int userCount = 0;
+int totalEarnings = 0;
+int bookingCount = 0;
+User *loggedInUser = NULL;
