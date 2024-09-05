@@ -106,3 +106,22 @@ void displayMovies() {
     }
     printf("=========================================\n");
 }
+
+void searchMovie() {
+    char searchName[50];
+    printf("Enter the movie name to search: ");
+    scanf(" %[^\n]%*c", searchName);
+    printf("\nSearch Results:\n");
+    int found = 0;
+    for (int i = 0; i < MAX_MOVIES; i++) {
+        if (movies[i].id != 0 && strstr(movies[i].name, searchName) != NULL) {
+            printf("%d. %s (%s) - Available Seats: %d | Price: $%d | Rating: %.1f/5\n",
+                   movies[i].id, movies[i].name, movies[i].time,
+                   movies[i].availableSeats, movies[i].pricePerSeat, movies[i].rating);
+            found = 1;
+        }
+    }
+    if (!found) {
+        printf("No movies found with the name '%s'.\n", searchName);
+    }
+}
