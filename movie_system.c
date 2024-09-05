@@ -92,3 +92,17 @@ void initializeMovies() {
     movies[4].reviewCount = 0;
     memset(movies[4].seatLayout, 0, sizeof(movies[4].seatLayout));
 }
+
+void displayMovies() {
+    printf("\n=========================================\n");
+    printf("                Available Movies\n");
+    printf("=========================================\n");
+    for (int i = 0; i < MAX_MOVIES; i++) {
+        if (movies[i].id != 0) {
+            printf("%d. %s (%s) - Available Seats: %d | Price: $%d | Rating: %.1f/5\n",
+                   movies[i].id, movies[i].name, movies[i].time,
+                   movies[i].availableSeats, movies[i].pricePerSeat, movies[i].rating);
+        }
+    }
+    printf("=========================================\n");
+}
