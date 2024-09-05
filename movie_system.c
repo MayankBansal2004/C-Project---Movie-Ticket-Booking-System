@@ -309,3 +309,72 @@ void loadMovieData() {
     fclose(file);
     printf("Movie data loaded successfully.\n");
 }
+
+void addReview(int movieId) {
+    if (loggedInUser == NULL) {
+        printf("\nPlease log in to add a review.\n");
+        return;
+    }
+
+    if (movies[movieId - 1].reviewCount < 5) {
+        printf("Enter your review: ");
+        scanf(" %[^\n]%*c", movies[movieId - 1].reviews[movies[movieId - 1].reviewCount]);
+        movies[movieId - 1].reviewCount++;
+        printf("Review added successfully!\n");
+    } else {
+        printf("Review limit reached for this movie.\n");
+    }
+}
+
+void displaySeatLayout(int movieId) {
+    if (movieId < 1 || movieId > MAX_MOVIES || movies[movieId - 1].id == 0) {
+        printf("Invalid Movie ID!\n");
+        return;
+    }
+
+    printf("Seat Layout for '%s':\n", movies[movieId - 1].name);
+    int rowCount = MAX_SEATS / SEATS_PER_ROW;
+
+    for (int row = 0; row < rowCount; row++) {
+        printf("Row %d: ", row + 1);
+        for (int col = 0; col < SEATS_PER_ROW; col++) {
+            int seatIndex = row * SEATS_PER_ROW + col;
+            printf("%c ", movies[movieId - 1].seatLayout[seatIndex] ? 'X' : 'O');
+        }
+        printf("\n");
+    }
+    
+    printf("Legend:\n");
+    printf("O = Available\n");
+    printf("X = Booked\n");
+}
+
+void seatSelection(int movieId, int *seatsBooked) {
+    displaySeatLayout(movieId);
+
+    int seatCount;
+    printf("Enter the number of seats you want to book: ");
+    scanf("%d", &seatCount);
+
+    // Ensure seatCount doesn't exceed available seats
+    if (seatCount > movies[movieId - 1].availableSeats) {
+        printf("Not enough available seats. Please try again.\n");
+        return;
+    }
+
+    for (int i = 0; i < seatCount; i++) {
+        int seatNum;
+        printf("Enter seat number %d: ", i + 1);
+        scanf("%d", &seatNum);
+
+        if (seatNum < 1 || seatNum > MAX_SEATS || movies[movieId - 1].seatLayout[seatNum - 1] == 1) {
+            printf("Invalid or already booked seat number! Try again.\n");
+            i--; // Re-enter the same seat number
+            continue;
+        }
+
+        seatsBooked[seatNum - 1] = 1; // Mark the seat as booked in the user's selection
+        movies[movieId - 1].seatLayout[seatNum - 1] = 'X'; // Mark the seat as booked in the movie's layout
+        movies[movieId - 1].availableSeats--; // Decrease the count of available seats
+    }
+}
