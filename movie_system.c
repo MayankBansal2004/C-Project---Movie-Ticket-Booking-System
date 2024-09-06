@@ -451,3 +451,41 @@ void loadUserData() {
     fread(users, sizeof(User), userCount, file);
     fclose(file);
 }
+
+void sortMovies() {
+    printf("Sort movies by:\n");
+    printf("1. Rating\n");
+    printf("2. Available Seats\n");
+    printf("3. Price\n");
+    printf("Enter your choice: ");
+    int choice;
+    scanf("%d", &choice);
+
+    for (int i = 0; i < MAX_MOVIES - 1; i++) {
+        for (int j = i + 1; j < MAX_MOVIES; j++) {
+            int swap = 0;
+            if (movies[i].id != 0 && movies[j].id != 0) {
+                switch (choice) {
+                    case 1:
+                        if (movies[i].rating < movies[j].rating) swap = 1;
+                        break;
+                    case 2:
+                        if (movies[i].availableSeats < movies[j].availableSeats) swap = 1;
+                        break;
+                    case 3:
+                        if (movies[i].pricePerSeat > movies[j].pricePerSeat) swap = 1;
+                        break;
+                    default:
+                        printf("Invalid choice!\n");
+                        return;
+                }
+                if (swap) {
+                    Movie temp = movies[i];
+                    movies[i] = movies[j];
+                    movies[j] = temp;
+                }
+            }
+        }
+    }
+    printf("Movies sorted successfully!\n");
+}
