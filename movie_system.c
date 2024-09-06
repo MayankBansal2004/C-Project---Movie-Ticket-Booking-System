@@ -535,3 +535,32 @@ void loadEarningsData() {
     fclose(file);
     printf("Earnings data loaded successfully.\n");
 }
+
+void userLogin() {
+    char username[50], password[20];
+    printf("Enter username: ");
+    scanf("%s", username);
+    printf("Enter password: ");
+    scanf("%s", password);
+
+    for (int i = 0; i < userCount; i++) {
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) {
+            loggedInUser = &users[i];
+            saveUserData();  // Save user data after login
+            printf("Login successful! Welcome, %s.\n", loggedInUser->username);
+            return;
+        }
+    }
+
+    printf("Invalid username or password!\n");
+}
+
+void logout() {
+    if (loggedInUser == NULL) {
+        printf("No user is logged in.\n");
+        return;
+    }
+
+    printf("User %s logged out successfully!\n", loggedInUser->username);
+    loggedInUser = NULL;
+}
