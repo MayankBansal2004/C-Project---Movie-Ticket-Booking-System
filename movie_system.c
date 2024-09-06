@@ -564,3 +564,38 @@ void logout() {
     printf("User %s logged out successfully!\n", loggedInUser->username);
     loggedInUser = NULL;
 }
+
+void mainMenu() {
+    while (1) {
+        printf("\nMain Menu:\n");
+        printf("1. Display Movies\n");
+        printf("2. Search Movie\n");
+        printf("3. Book Ticket\n");
+        printf("4. View Bookings\n");
+        printf("5. Cancel Booking\n");
+        printf("6. User Registration\n");
+        printf("7. User Login\n");
+        printf("8. Logout\n");
+        printf("9. Update Profile\n");
+        printf("10. Sort Movies\n");
+        printf("11. Exit\n");
+        printf("Enter your choice: ");
+        int choice;
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: displayMovies(); break;
+            case 2: searchMovie(); break;
+            case 3: bookTicket(); break;
+            case 4: viewBookings(); break;
+            case 5: cancelBooking(); break;
+            case 6: userRegistration(); break;
+            case 7: userLogin(); break;
+            case 8: logout(); break;
+            case 9: updateUserProfile(); break;
+            case 10: sortMovies(); break;
+            case 11: return;
+            default: printf("Invalid choice! Please try again.\n");
+        }
+    }
+}
