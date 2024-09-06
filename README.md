@@ -88,6 +88,10 @@ The program consists of the following key functions:
 - **Database Integration:** Replacing the static arrays with a database for more scalable and persistent data management.
 - **Admin Authentication:** Adding a secure login system for admin access.
 
+## Project Structure
+- **movie_system.h: Header file containing the declarations for functions and data structures.
+- **movie_system.c: Main C file where the logic for the booking system is implemented.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
