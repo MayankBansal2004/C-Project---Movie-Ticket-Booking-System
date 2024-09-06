@@ -599,3 +599,24 @@ void mainMenu() {
         }
     }
 }
+
+void adminMenu() {
+    while (1) {
+        printf("\nAdmin Menu:\n");
+        printf("1. Add Movie\n");
+        printf("2. Remove Movie\n");
+        printf("3. Generate Revenue Report\n");
+        printf("4. Exit Admin Menu\n");
+        printf("Enter your choice: ");
+        int choice;
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: addMovie(); break;
+            case 2: removeMovie(); break;
+            case 3: revenueReport(); break;
+            case 4: return;
+            default: printf("Invalid choice! Please try again.\n");
+        }
+    }
+}
