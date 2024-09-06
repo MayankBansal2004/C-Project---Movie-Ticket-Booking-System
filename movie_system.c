@@ -489,3 +489,49 @@ void sortMovies() {
     }
     printf("Movies sorted successfully!\n");
 }
+
+void userRegistration() {
+    if (userCount >= MAX_USERS) {
+        printf("User registration limit reached.\n");
+        return;
+    }
+
+    User newUser;
+    printf("Enter username: ");
+    scanf("%s", newUser.username);
+    printf("Enter password: ");
+    scanf("%s", newUser.password);
+    printf("Enter email: ");
+    scanf("%s", newUser.email);
+    printf("Enter phone number: ");
+    scanf("%s", newUser.phone);
+
+    newUser.bookingCount = 0;
+    newUser.loyaltyPoints = 0;
+
+    users[userCount++] = newUser;
+    saveUserData();  // Save user data after registration
+    printf("User registered successfully!\n");
+}
+
+void saveEarningsData() {
+    FILE *file = fopen("earnings.dat", "wb");
+    if (file == NULL) {
+        printf("Error opening file for writing.\n");
+        return;
+    }
+    fwrite(&totalEarnings, sizeof(int), 1, file);
+    fclose(file);
+    printf("Earnings data saved successfully.\n");
+}
+
+void loadEarningsData() {
+    FILE *file = fopen("earnings.dat", "rb");
+    if (file == NULL) {
+        // File doesn't exist, no earnings to load
+        return;
+    }
+    fread(&totalEarnings, sizeof(int), 1, file);
+    fclose(file);
+    printf("Earnings data loaded successfully.\n");
+}
