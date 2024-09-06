@@ -89,8 +89,8 @@ The program consists of the following key functions:
 - **Admin Authentication:** Adding a secure login system for admin access.
 
 ## Project Structure
-- **movie_system.h: Header file containing the declarations for functions and data structures.
-- **movie_system.c: Main C file where the logic for the booking system is implemented.
+- movie_system.h: Header file containing the declarations for functions and data structures.
+- movie_system.c: Main C file where the logic for the booking system is implemented.
 
 ## License
 
