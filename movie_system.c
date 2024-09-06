@@ -620,3 +620,9 @@ void adminMenu() {
         }
     }
 }
+
+void revenueReport() {
+    printf("\n=========================================\n");
+    printf("Total Revenue: $%d\n", totalEarnings);
+    printf("=========================================\n");
+}
