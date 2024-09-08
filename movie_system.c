@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include "movie_system.h"
+#include <Windows.h>
 
 #define MAX_MOVIES 100
 #define MAX_BOOKINGS 50
